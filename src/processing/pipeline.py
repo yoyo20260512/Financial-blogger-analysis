@@ -6,7 +6,7 @@ import logging
 import os
 from pathlib import Path
 
-from src.processing.cleaner import clean_text, remove_boilerplate
+from src.processing.cleaner import clean_text
 from src.processing.chunker import chunk_text
 from src.processing.embedder import EmbeddingManager
 
@@ -77,8 +77,9 @@ def run_processing_pipeline() -> dict:
     )
     logger.info("Chunks index saved: %d chunks", len(all_chunks))
 
-    # 向量化并存入 ChromaDB
+    # 向量化并存入 ChromaDB（先清空再重新写入，避免重复）
     embedder = EmbeddingManager()
+    embedder.reset_collection()
     embedder.add_chunks(all_chunks)
 
     logger.info("Pipeline complete: %d chunks → ChromaDB", len(all_chunks))

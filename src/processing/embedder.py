@@ -120,3 +120,15 @@ class EmbeddingManager:
             blogger = m.get("blogger", "unknown")
             blogger_counts[blogger] = blogger_counts.get(blogger, 0) + 1
         return {"total_chunks": count, "by_blogger": blogger_counts}
+
+    def reset_collection(self):
+        """清空并重建 collection（用于 pipeline 重新处理时去重）"""
+        try:
+            self._client.delete_collection(self.collection_name)
+        except Exception:
+            pass
+        self._collection = self._client.create_collection(
+            name=self.collection_name,
+            metadata={"hnsw:space": "cosine"},
+        )
+        logger.info("Collection %s reset", self.collection_name)
