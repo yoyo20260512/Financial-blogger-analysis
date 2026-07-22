@@ -1,7 +1,9 @@
 # Large files
 models/
 outputs/
-data/
+
+# data - track the raw and index files, not large binaries
+data/processed/chroma_db/
 
 # Python
 __pycache__/

@@ -1,0 +1,158 @@
+A 股每日盘前资讯 20260326-完整版
+报告日期：2026 年 03 月 26 日（北京时间）
+参考美股交易日：2026 年 03 月 25 日
+面向 A 股开盘日：2026 年 03 月 26 日
+1. 今日 A 股重点关注板块
+重点板块 核心逻辑与外媒新闻 信号强度
+AI 电力/液冷 SMCI 宣布印度扩张计划及 AI 服
+务器需求强劲，股价大涨 8.2%。
+同时马斯克宣布建设新 AI 芯片工
+厂。量化因子显示美股对 A 股该
+板块传导呈强相关
+（r_lag1=0.568）。
+强
+半导体/AI 算力 ARM 发布自研 AI 芯片，预期营
+收将增长 6 倍，股价暴涨超
+18%，带动 AMD 大涨 7.26%。
+Reuters 报道中国 AI 芯片需求强
+劲。量化传导偏利好。
+中-强
+脑机接口 马斯克在 X 平台宣布 Neuralink
+成功帮助 ALS 患者恢复语言能
+力，展示了 VOICE 项目的突破。
+作为全新催化剂，值得重点关
+注。
+中
+有色金属/黄金 中东停火协议遭伊朗拒绝，避险
+情绪推升黄金价格大涨 2.65%至
+4515 美元/盎司历史高位。高盛
+上调铝价预测。量化传导偏利
+好。
+中
+今日核心风险提示：
+1. 中东地缘政治冲突持续：伊朗拒绝美国停火提议，可能导致原油及大宗商品价格波动加剧，增加全球通胀
+压力。
+
+2. 获利盘兑现风险：美股部分 AI 芯片及硬件公司（如 ARM、SMCI）短期涨幅过大，A 股映射板块可能面临
+高位震荡及资金分歧。
+2. 量化传导信号总结（完整版）
+基于美股 T 日（2026-03-25）对 A 股 T+1 日（2026-03-26）的隔夜传导效应分析。具体计算过程如下：
+【计算过程】
+1. 获取美股 T 日及过去 3 个月的收盘价，计算日收益率。
+2. 通过 AKShare 获取对应 A 股申万行业指数（或代表性个股）前复权收盘价，计算日收益率。
+3. 对齐中美交易日，计算同日相关系数（r_same）、隔夜相关系数（r_lag1：美股 T 日与 A 股 T+1 日）及
+Beta 系数（协方差比方差）。
+A 股行业板
+块
+美股代理标
+的
+美股 T 日均
+涨跌
+r_same r_lag1 Beta 方向信号
+AI 电力/液
+冷
+NVDA,
+SMCI, AMD
++4.40% 0.013 0.568 0.002 利好
+半导体 AMD,
+AVGO,
+MRVL
++4.67% -0.040 0.180 -0.029 偏利好
+AI 应用
+/TMT
+AMD,
+META,
+MRVL,
+GOOGL
++3.59% 0.074 0.234 0.115 偏利好
+有色金属 AA, FCX,
+CENX
++1.52% 0.508 0.474 0.478 偏利好
+储能 TSLA,
+FLNC,
+ENPH, NEE,
+FSLR
++1.13% 0.071 0.361 0.047 偏利好
+锂矿/铀矿 CCJ, UEC,
+NXE
++1.19% 0.225 0.332 0.140 偏利好
+光模块/CPO COHR, LITE,
+AAOI
+-0.92% -0.296 0.138 -0.044 中性
+化工 LYB, DOW +2.49% 0.168 0.138 0.096 中性
+脑机接口 IOVA, PRCT +1.48% N/A N/A N/A 中性
+3. 市场总览
+
+指标/公司名称 代码 收盘价/点位 涨跌幅
+标普 500 指数 ^GSPC 6591.90 +0.54%
+纳斯达克综合指数 ^IXIC 21929.83 +0.77%
+纳斯达克金龙中国指数 HXC 6897.01 +1.86%
+COMEX 黄金期货 GC=F 4515.80 +2.65%
+WTI 原油期货 CL=F 91.04 -1.42%
+美元指数 DX-Y.NYB 99.64 +0.21%
+LME 铜 (3M Select) LME Copper 12264.00 +1.35%
+LME 铝 (3M Select) LME Aluminum 3249.50 -0.34%
+4. 外媒头条摘要（详细版）
+【AP News】Iran dismisses US ceasefire plan, as attacks persist across Mideast
+时间：2026-03-25 | 链接：https://apnews.com/article/iran-us-israel-trump-lebanon-march-25-2026-
+be07c54139bcc70672bb33f0773ede6a
+摘要：伊朗正式拒绝美国提出的 15 点停火方案，伊朗外长称未参与任何谈判。同时，美国向中东增派 82 空
+降师约 1000 名伞兵及 5000 名海军陆战队，地区紧张局势进一步升级。布伦特原油虽小幅回落至约 100 美元
+/桶，但较冲突爆发前仍上涨约 35%。
+影响判断：中东局势仍高度不确定，油价维持高位对全球通胀预期有压力；对 A 股能源、化工、航运及避险
+资产（黄金）板块有扰动。
+【Reuters】Arm jumps 18%+ as new AI chip to drive billions in annual revenue
+时间：2026-03-25 | 链接：https://www.reuters.com/business/arm-jumps-new-ai-chip-drive-billions-annual-
+revenue-2026-03-25/
+摘要：ARM Holdings 发布首款自研数据中心 AI 芯片，CEO Rene Haas 预计该芯片到 2031 年将带来约
+150 亿美元年收入（2025 年仅为 40 亿美元，预计增长 6 倍）。此消息引发市场对 AI 硬件需求的新一轮乐观
+情绪，ARM 股价大涨 18.20%，带动 AMD（+7.26%）、MRVL（+6.59%）等 AI 芯片股强劲上涨。
+影响判断：极大利好 A 股 AI 芯片、半导体设备、光模块/CPO 板块，资金对算力基础设施的关注度将显著提
+升。
+【Fortune】China could be the 'big winner' in the AI race
+
+时间：2026-03-25 | 链接：https://fortune.com/2026/03/25/china-vs-us-ai-power-open-source-openclaw/
+摘要：Jefferies 全球宏观策略师 Mohit Kumar 指出，中国可能是 AI 竞赛的最大赢家。核心理由包括：中国
+科技股估值较低、AI 应用场景更广泛，以及显著的电力成本优势（西部省份电价低至 5 美分/度，远低于美国
+部分地区的 40 美分/度）。此外，Nvidia CEO Jensen Huang 盛赞 OpenClaw 开源框架，带动相关中国 AI
+公司估值提升。
+影响判断：利好 A 股 AI 应用、大模型及 TMT 板块，特别是具备低成本算力优势及丰富应用场景的相关公
+司。
+【Elon Musk (X/Twitter)】Elon Musk: 'Neuralink is restoring speech and communication'
+时间：2026-03-25 | 链接：https://x.com/elonmusk
+摘要：马斯克在 X 平台发文宣布，Neuralink 正在帮助失语者恢复语言能力。通过 VOICE 项目，ALS 患者
+Kenneth Shock 成功将脑电信号转化为可听语音。这是 Neuralink 首次公开展示语音恢复功能。此外，马斯
+克还透露 Grok Imagine 下一版本将非常“震撼”，并计划在得州建设新 AI 芯片工厂。
+影响判断：全新催化剂，利好 A 股脑机接口概念股、医疗科技板块及 AI 算力基础设施相关公司。
+【Reuters】AI boom accelerates China's chip industry growth as demand strains supply chain
+时间：2026-03-25 | 链接：https://www.reuters.com/business/autos-transportation/ai-boom-accelerates-chinas-
+chip-industry-growth-demand-strains-supply-chain-2026-03-25/
+摘要：Reuters 报道指出，全球 AI 基础设施建设热潮正在推动中国芯片产业强劲增长，但短期内需求激增也
+导致了供应链的紧张。中国本土 AI 芯片及相关设备需求增速显著，国产替代进程正在加速推进。
+影响判断：利好 A 股半导体设备、AI 算力及半导体材料板块，国产替代逻辑进一步强化。
+5. 重要美股收盘（涨幅最高标的）
+公司名称 代码 收盘价 涨跌幅
+Arm Holdings ARM 165.20 +18.20%
+Super Micro
+Computer
+SMCI 24.05 +8.19%
+Advanced Micro
+Devices
+AMD 220.27 +7.26%
+
+Marvell Technology MRVL 98.45 +6.59%
+Enphase Energy ENPH 42.53 +3.81%
+Iovance
+Biotherapeutics
+IOVA 3.75 +3.59%
+Alcoa Corp AA 58.70 +3.56%
+Amazon AMZN 211.71 +2.16%
+Nvidia NVDA 178.68 +1.99%
+Uranium Energy UEC 13.44 +1.90%
+6. 量化因子计算方法说明
+1. 数据窗口：采用 3 个月（约 63 个交易日）回溯窗口。
+2. A 股代理选取：直接采用真实的 A 股申万行业指数（如 851521 计算机设备 SW、801050 有色金属 SW
+等）作为被解释变量，确保数据反映真实的 A 股行业表现。
+3. 存储板块映射：优先选取佰维存储、江波龙等 A 股个股作为半导体存储代理。
+4. 数据准确性：通过 AKShare 获取 A 股申万行业及个股前复权历史数据，美股通过 yfinance 获取调整后收
+盘价，严格对齐交易日计算相关系数(r_same, r_lag1)及 Beta 值。

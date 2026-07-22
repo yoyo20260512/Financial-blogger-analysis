@@ -1,0 +1,138 @@
+A 股每日盘前资讯 20260325-精简版
+报告日期：2026 年 3 月 25 日 | 参考美股数据：2026 年 3 月 24 日
+1. 今日 A 股重点关注板块与核心风险
+关注板块 核心逻辑与信号强度 A 股相关公司
+光模块/CPO 信号强度：强。美股 AAOI 获超
+大型云厂商数据中心光收发器大
+单暴涨 19%，COHR 在 OFC
+2026 展示 400Gbps 硅光子突
+破，北美云厂商高速光模块需求
+强劲。
+中际旭创、新易盛、天孚通信、
+华工科技
+有色金属-铝 信号强度：强。中东战事导致阿
+联酋和巴林铝冶炼厂关闭并宣布
+不可抗力，LME 铝价创 2022 年
+以来新高，供给缺口短期难以弥
+补。
+中国铝业、云铝股份、神火股份
+铀矿/核能 信号强度：强。铀现货价格接近
+92 美元/磅，美国政府承诺 800
+亿美元核能部署，美股 UEC 大涨
+5.4%，CCJ 涨 2.3%。
+中国核电、中广核技
+今日核心风险提示：
+1. AI 应用与传统软件板块面临估值重塑风险（AWS 与 Anthropic 推出新 AI 自动化工具，引发传统 SaaS 模
+式被颠覆的担忧，美股 Oracle、Salesforce 大跌）。
+2. 中东地缘局势升温导致外围市场避险情绪上升，VIX 恐慌指数走高，可能拖累 A 股开盘情绪。
+2. 量化传导信号总结（美股对 A 股隔夜传导）
+行业板块 美股代理 A 股代理 方向信号
+光模块/CPO COHR, LITE, AAOI 申万光模块指数 利好
+AI 电力/液冷 NVDA, AMD 申万电网设备/液冷概念 中性
+储能 TSLA, FLNC, ENPH,
+NEE, FSLR
+比亚迪、阳光电源、宁
+德时代等
+利好
+有色金属-铝 AA (美国铝业) 中国铝业等 利好
+有色金属-铜 FCX 紫金矿业等 利好
+化工 LYB, DOW 申万化学原料指数 利好
+AI 应用 META, GOOGL, MSFT 申万计算机应用指数 利空
+TMT AVGO, ORCL 申万通信/计算机指数 利空
+锂矿 ALB, SQM 天齐锂业、赣锋锂业等 中性
+铀矿 CCJ, UEC 中国核电等 利好
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+
+脑机接口 NVDA, AMD 创新医疗、三博脑科等 利好
+3. 市场总览（数据截至美股 2026 年 3 月 24 日收盘）
+指数/商品 收盘价/点位 涨跌幅 状态
+标普 500 (S&P 500) 6,556.37 -0.37% 收跌
+纳斯达克 (Nasdaq) 21,761.89 -0.84% 收跌
+纳斯达克金龙中国指数 暂无 震荡 观望
+LME 铜 (LME Copper) 11,930.00 美元/吨 -0.55% 高位震荡
+LME 铝 (LME
+Aluminum)
+3,260.50 美元/吨 +1.92% 创两年新高
+布伦特原油 (Brent
+Crude)
+103.60 美元/桶 +3.63% 大幅反弹
+COMEX 黄金 (Gold) 2,350.00 美元/盎司 -0.50% 高位回落
+美元指数 (DXY) 104.20 +0.15% 偏强
+4. 外媒头条摘要（过去 24 小时）
+【TheStreet / Motley Fool (2026-03-24 16:01 EDT)】 美股三大指数收跌，中东伊朗局势再度升温，霍
+尔木兹海峡过境费高达 200 万美元/次，油价反弹。科技软件股领跌。
+链接: https://www.thestreet.com/latest-news/stock-market-today-march-24-2026-updates
+影响判断: 利空科技板块，利好能源/有色金属。
+【Seeking Alpha / OFC 2026 (2026-03-24 11:58 EDT)】 光模块板块大涨：Applied Optoelectronics
+(AAOI) 获超大型云厂商订单暴涨 19%，Coherent (COHR) 发布 400Gbps 硅光子突破。
+链接: https://simplywall.st/stocks/us/tech/nyse-cohr/coherent/news/coherent-targets-ai-datacenter-
+growth-with-400-gbps-silicon
+影响判断: 强力利好 A 股光模块板块。
+【Investing.com (2026-03-24 09:00 EDT)】 AI 软件股遭受双重打压：AWS 与 Anthropic AI 自动化工
+具冲击传统软件盈利模式，Oracle (ORCL) 跌 4.7%，Salesforce (CRM) 跌 6.2%。
+链接: https://ca.investing.com/news/stock-market-news/software-stocks-under-pressure-as-
+anthropic-and-aws-double-down-on-ai-automation-4530383
+影响判断: 利空 A 股 AI 应用及传统软件公司。
+【Barchart (2026-03-24 14:00 CDT)】 LME 铝价飙升：中东战争导致阿联酋和巴林铝冶炼厂停产，LME
+铝库存降至 432,725 吨历史低位，铝价创 2022 年以来新高。
+链接: https://www.barchart.com/story/news/927334/why-is-lme-aluminum-outperforming-lme-
+copper-in-march-2026
+影响判断: 强力利好 A 股铝业板块。
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+
+【Reuters (2026-03-24 06:00 EDT)】 中国发展论坛 2026：全球百家跨国企业 CEO 赴京，中国强调作为
+全球不确定性中的稳定力量，外资领袖普遍表达信心。
+链接: https://www.reuters.com/world/china/china-positions-itself-stable-economic-force-amid-
+global-uncertainty-beijing-2026-03-24/
+影响判断: 利好 A 股整体情绪。
+【X (Twitter) / Elon Musk (2026-03-24)】 Elon Musk 相关新闻：加州陪审团裁定 Musk 对 Twitter 股
+东存在误导；同时巴尔的摩起诉 xAI 的 Grok 模型。Neuralink 首位患者分享 100 天意念控制体验。
+链接: https://www.reuters.com/legal/government/baltimore-sues-elon-musks-xai-over-grok-sexual-
+deepfakes-2026-03-24/
+影响判断: 利好脑机接口，Musk 法律风险增加。
+5. 重要美股收盘（涨跌幅异动）
+股票代码 公司名称 涨跌幅 所属板块
+AAOI Applied
+Optoelectronics
++18.94% 光模块/通信
+LITE Lumentum Holdings +10.02% 光模块/通信
+COHR Coherent +6.78% 光模块/半导体
+LYB LyondellBasell +6.35% 化工
+DOW Dow Inc. +6.30% 化工
+UEC Uranium Energy Corp +5.44% 铀矿/核能
+FLNC Fluence Energy +5.14% 储能
+FCX Freeport-McMoRan +2.80% 有色金属-铜
+CRM Salesforce -6.50% 软件/AI 应用
+ORCL Oracle -4.79% 软件/云服务
+6. 量化因子计算方法说明
+1. 回溯窗口：过去 3 个月（约 63 个交易日）。
+2. 计算逻辑：使用美股 T 日收益率对 A 股真实行业指数（或代表性个股）T+1 日收益率进行回归，计算相关
+系数(r)和 Beta 值。
+3. A 股代理：严格采用申万二级行业指数或代表性个股（如光模块采用华工科技、新易盛等，半导体存储采
+用佰维存储、江波龙等），不使用宽基 ETF。
+4. 储能板块美股代理包含：Tesla, FLNC, ENPH, NEE, FSLR。
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议
+盘前资讯不构成投资建议

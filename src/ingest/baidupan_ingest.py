@@ -20,13 +20,15 @@ class BaiduPanIngestor:
 
     def __init__(self):
         self.client = BaiduPanClient()
-        # 博主 → 网盘路径映射
+        # 博主 → 网盘路径映射（路径实际存在）
         self.blogger_paths = {
-            "博士": "/笔记梳理/博士",
-            "梅森": "/笔记梳理/梅森",
+            "钱博士": "/a投资/钱博士",
+            "梅森": "/a投资/梅森投研",
             "爽姐": "/a投资/爽姐",
-            "老姚": "/a投资/2026老姚前瞻班直播【持续更新至26年底】",
+            "老姚": "/a投资/2026老姚前瞻班直播【持续更新至26年底",
         }
+        # 递归扫描深度（子目录）
+        self.max_depth = 3
         self.cache_dir = Path(os.path.dirname(os.path.abspath(__file__))) / ".." / ".." / "data" / "processed" / "baidupan_cache"
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
@@ -47,6 +49,19 @@ class BaiduPanIngestor:
         cache_file = self.cache_dir / "processed.json"
         cache_file.write_text(json.dumps(cache, ensure_ascii=False, indent=2))
 
+    def _scan_recursive(self, path: str, depth: int = 0) -> list[dict]:
+        """递归扫描目录"""
+        if depth > self.max_depth:
+            return []
+        files = self.client.list_files(path)
+        results = []
+        for f in files:
+            results.append(f)
+            if f.get("isdir") == 1:
+                sub = self._scan_recursive(f.get("path", ""), depth + 1)
+                results.extend(sub)
+        return results
+
     def run(self) -> dict:
         """全量运行接入流程"""
         if not self.client.is_configured:
@@ -61,10 +76,11 @@ class BaiduPanIngestor:
             blogger_dir = RAW_DIR / blogger
             blogger_dir.mkdir(parents=True, exist_ok=True)
 
-            files = self.client.list_files(pan_path)
+            all_files = self._scan_recursive(pan_path)
+            logger.info("  %s: 扫描到 %d 个文件", blogger, len(all_files))
             blogger_count = {"videos": 0, "documents": 0}
 
-            for f in files:
+            for f in all_files:
                 fsid = f["fs_id"]
                 filename = f["filename"]
                 category = f.get("category", 0)
@@ -92,22 +108,7 @@ class BaiduPanIngestor:
 
                 # 处理文档类 — 下载并解析
                 elif category == 4 and ext in ("txt", "md", "pdf", "ppt", "pptx"):
-                    content_bytes = None
-                    try:
-                        import httpx
-                        resp = httpx.get(
-                            "https://pcs.baidu.com/rest/2.0/pcs/file",
-                            params={
-                                "method": "download",
-                                "access_token": self.client._access_token,
-                                "fsid": fsid,
-                            },
-                            timeout=60, follow_redirects=True,
-                        )
-                        if resp.status_code == 200:
-                            content_bytes = resp.content
-                    except Exception as e:
-                        logger.warning("Download error %s: %s", filename, e)
+                    content_bytes = self.client.download_text(fsid)
 
                     if content_bytes:
                         text = parse_text(filename, content_bytes)

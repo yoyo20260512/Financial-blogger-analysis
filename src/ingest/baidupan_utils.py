@@ -61,21 +61,38 @@ class BaiduPanClient:
             logger.error("BaiduPan list error: %s", e)
             return []
 
-    def download_text(self, fsid: int) -> str:
-        """下载文字文件内容（.txt/.md）"""
+    def download_text(self, fsid: int) -> bytes:
+        """下载文件内容（通过 filemetas 获取 dlink 后再下载）"""
         if not self._access_token:
-            return ""
+            return b""
         try:
+            # 1. 获取文件下载链接
             resp = httpx.get(
-                f"{PCS_BASE}",
-                params={"method": "download", "access_token": self._access_token, "fsid": fsid},
-                timeout=60, follow_redirects=True,
+                f"{PAN_BASE}/rest/2.0/xpan/file",
+                params={
+                    "access_token": self._access_token,
+                    "method": "filemetas",
+                    "fsids": f"[{fsid}]",
+                    "dlink": 1,
+                },
+                timeout=30,
             )
-            if resp.status_code == 200:
-                return resp.text
+            data = resp.json()
+            if data.get("errno") != 0 or not data.get("info"):
+                return b""
+            dlink = data["info"][0].get("dlink", "")
+            if not dlink:
+                return b""
+            # dlink 需要追加 access_token
+            dlink += "&access_token=" + self._access_token
+
+            # 2. 用 dlink 下载文件内容
+            dl_resp = httpx.get(dlink, timeout=60, follow_redirects=True)
+            if dl_resp.status_code == 200:
+                return dl_resp.content
         except Exception as e:
             logger.warning("BaiduPan download error: %s", e)
-        return ""
+        return b""
 
     def submit_transcribe(self, fsid: int, filename: str = "") -> dict:
         """提交AI纪要视频转写任务"""
