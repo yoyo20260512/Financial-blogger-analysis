@@ -1,9 +1,7 @@
 """
 百度网盘工具类 - 封装文件列表、下载、AI纪要接口
 """
-import json, logging, os, time
-from datetime import datetime
-from typing import Optional
+import json, logging, os
 import httpx
 from dotenv import load_dotenv
 
@@ -20,17 +18,11 @@ class BaiduPanClient:
     """百度网盘客户端（认证 + 文件操作 + AI纪要）"""
 
     def __init__(self):
-        self.api_key = os.getenv("BAIDUPAN_API_KEY", "")
-        self.app_secret = os.getenv("BAIDUPAN_APP_SECRET", "")
         self._access_token = os.getenv("BAIDUPAN_ACCESS_TOKEN", "")
-        self._refresh_token = os.getenv("BAIDUPAN_REFRESH_TOKEN", "")
 
     @property
     def is_configured(self) -> bool:
         return bool(self._access_token)
-
-    def _headers(self) -> dict:
-        return {"Content-Type": "application/json"}
 
     def list_files(self, path: str = "/笔记梳理") -> list[dict]:
         """列出网盘目录下的文件"""

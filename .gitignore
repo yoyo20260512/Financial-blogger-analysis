@@ -25,3 +25,12 @@ data/processed/chroma_db/
 
 # Cache
 .superpowers/
+.claude/
+
+# Notebooks
+*.ipynb
+问答/
+
+# Screenshots
+*.png
+*.jpg
