@@ -1,0 +1,49 @@
+# Qwen2.5-1.5B-Instruct QLoRA 微调配置 (Mac MPS)
+model_name_or_path: /Users/jinqianyu/Documents/个人资料/大数据/财经博主/models/Qwen2.5-1.5B-Instruct
+trust_remote_code: true
+
+### 量化（4bit QLoRA）
+quantization_bit: 4
+quantization_method: bnb
+double_quantization: true
+
+### 方法
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.1
+lora_target: all
+
+### 数据集
+dataset: finance_stock_data
+template: qwen
+cutoff_len: 1024
+max_samples: 100000
+preprocessing_num_workers: 4
+
+### 输出
+output_dir: /Users/jinqianyu/Documents/个人资料/大数据/财经博主/outputs/qwen_lora_finetuned
+logging_steps: 5
+save_steps: 20
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
+report_to: none
+
+### 训练参数
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 2.0e-4
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+fp16: false
+bf16: false
+
+### 优化器
+optim: adamw_torch
+
+### 评估
+val_size: 0

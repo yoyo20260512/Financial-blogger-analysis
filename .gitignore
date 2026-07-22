@@ -1,0 +1,27 @@
+# Large files
+models/
+outputs/
+data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Env
+.env
+
+# IDE
+.idea/
+.vscode/
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# ChromaDB
+data/processed/chroma_db/
+
+# Cache
+.superpowers/

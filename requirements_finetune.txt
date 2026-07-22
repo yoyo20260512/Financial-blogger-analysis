@@ -1,0 +1,10 @@
+# DeepSeek-R1 微调环境依赖
+torch>=2.0.0
+transformers>=4.40.0
+accelerate>=0.30.0
+peft>=0.10.0
+bitsandbytes>=0.43.0
+trl>=0.8.0
+datasets>=2.14.0
+sentencepiece>=0.1.99
+safetensors>=0.4.0
