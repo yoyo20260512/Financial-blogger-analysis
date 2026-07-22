@@ -73,17 +73,21 @@ def _get_local_pipeline():
 
 def _generate_local(prompt: str, max_tokens: int = 2048) -> str:
     """用本地模型生成"""
-    pipe = _get_local_pipeline()
-    model, tokenizer = pipe["model"], pipe["tokenizer"]
-    messages = [
-        {"role": "system", "content": "你是一个专业的财经投资知识助手。"},
-        {"role": "user", "content": prompt},
-    ]
-    text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-    inputs = tokenizer(text, return_tensors="pt").to(model.device)
-    outputs = model.generate(**inputs, max_new_tokens=max_tokens, temperature=0.3, do_sample=True)
-    response = tokenizer.decode(outputs[0][inputs.input_ids.shape[1] :], skip_special_tokens=True)
-    return response.strip() or "（本地模型未返回有效内容）"
+    try:
+        pipe = _get_local_pipeline()
+        model, tokenizer = pipe["model"], pipe["tokenizer"]
+        messages = [
+            {"role": "system", "content": "你是一个专业的财经投资知识助手。"},
+            {"role": "user", "content": prompt},
+        ]
+        text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        inputs = tokenizer(text, return_tensors="pt").to(model.device)
+        outputs = model.generate(**inputs, max_new_tokens=max_tokens, temperature=0.3, do_sample=True)
+        response = tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
+        return response.strip() or "（本地模型未返回有效内容）"
+    except Exception as e:
+        logger.error("Local model generation failed: %s", e)
+        return f"本地模型生成失败: {e}"
 
 
 # ======== 公共函数 ========
@@ -190,6 +194,45 @@ def summarize_blogger_style(blogger: str) -> str:
 
     user_prompt = f"## 参考资料\n\n{context}\n\n## 任务\n\n请总结博主「{blogger}」的投资风格。"
     return _llm_call(system_prompt, user_prompt)
+
+
+def compare_bloggers(query: str, bloggers: list[str], n: int = 5) -> str:
+    """
+    对比不同博主对同一问题的观点
+
+    参数:
+        query: 问题
+        bloggers: 博主名称列表，如 ["博士", "梅森"]
+        n: 每位博主检索的块数
+
+    返回:
+        对比分析报告
+    """
+    results = {}
+    for blogger in bloggers:
+        retrieved = retrieve(query, blogger=blogger, n=n)
+        if not retrieved:
+            results[blogger] = "（暂无相关数据）"
+            continue
+
+        context = _build_context(retrieved[:5])
+        system_prompt = f"""你是一个客观的财经分析助手。
+用户想了解博主「{blogger}」对某个问题的看法。
+请严格基于以下参考资料，提炼该博主的核心观点。
+如果资料不直接相关，请如实说明。"""
+
+        user_prompt = f"## 参考资料\n\n{context}\n\n## 问题\n\n{query}"
+        answer = _llm_call(system_prompt, user_prompt)
+        results[blogger] = answer
+
+    # 再综合对比
+    summary_prompt = "以下是不同财经博主对同一问题的回答。请对比他们的观点差异：\n\n"
+    for blogger, answer in results.items():
+        summary_prompt += f"## {blogger}\n{answer}\n\n"
+    summary_prompt += "\n## 对比总结\n请从以下维度对比：1) 核心观点差异  2) 分析角度不同  3) 风险偏好差异  4) 谁的观点更值得参考。请用结构化格式输出。"
+
+    summary = _llm_call("你是一个投资观点分析师，擅长对比不同博主的观点差异。", summary_prompt)
+    return summary
 
 
 def extract_experience(blogger: Optional[str] = None) -> str:

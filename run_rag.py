@@ -8,6 +8,7 @@
     python run_rag.py pipeline                   # 全流程：ingest + process
     python run_rag.py ask "问题"                  # 问答
     python run_rag.py ask "问题" --blogger 博士   # 指定博主问答
+    python run_rag.py compare "问题" "博士,梅森"  # 对比不同博主观点
     python run_rag.py style 博士                 # 总结博主风格
     python run_rag.py experience                 # 提炼投资经验
     python run_rag.py stats                      # 查看向量库统计
@@ -41,6 +42,11 @@ def main():
     ask_parser = subparsers.add_parser("ask", help="基于RAG回答问题")
     ask_parser.add_argument("query", help="问题")
     ask_parser.add_argument("--blogger", "-b", default=None, help="指定博主")
+
+    # compare
+    compare_parser = subparsers.add_parser("compare", help="对比不同博主对同一问题的观点")
+    compare_parser.add_argument("query", help="问题")
+    compare_parser.add_argument("bloggers", help="博主名称，逗号分隔，如 博士,梅森")
 
     # style
     style_parser = subparsers.add_parser("style", help="总结博主投资风格")
@@ -103,6 +109,12 @@ def main():
         from src.rag.generator import answer_question
         result = answer_question(args.query, blogger=args.blogger)
         print(f"\n回答:\n{result}")
+
+    elif args.command == "compare":
+        from src.rag.generator import compare_bloggers
+        bloggers = [b.strip() for b in args.bloggers.split(",")]
+        result = compare_bloggers(args.query, bloggers)
+        print(f"\n观点对比:\n{result}")
 
     elif args.command == "style":
         from src.rag.generator import summarize_blogger_style

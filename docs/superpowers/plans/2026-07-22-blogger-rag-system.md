@@ -1067,7 +1067,7 @@ logger = logging.getLogger(__name__)
 CHROMA_DIR = Path(__file__).parent.parent.parent / "data" / "processed" / "chroma_db"
 # 使用 sentence-transformers 或 text2vec 作为 embedding 模型
 # BAAI/bge-large-zh-v1.5 是中文场景的优秀选择
-EMBED_MODEL = os.getenv("EMBED_MODEL", "BAAI/bge-large-zh-v1.5")
+EMBED_MODEL = os.getenv("EMBED_MODEL", "BAAI/bge-small-zh-v1.5")
 
 
 class EmbeddingManager:
