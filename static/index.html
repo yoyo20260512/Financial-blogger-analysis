@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>财经博主 RAG 分析</title>
+<style>
+:root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293b;
+    --bg-card-hover: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #334155;
+    --accent-green: #22c55e;
+    --accent-red: #ef4444;
+    --accent-orange: #f59e0b;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.app-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px; background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+}
+.header-left h1 {
+    font-size: 1.4rem; font-weight: 700;
+    background: linear-gradient(135deg, #22c55e, #3b82f6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle { font-size: 0.75rem; color: var(--text-muted); margin-left: 8px; }
+
+.app-main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+.tabs {
+    display: flex; gap: 4px; background: var(--bg-secondary);
+    border-radius: 12px; padding: 4px; margin-bottom: 24px;
+}
+.tab {
+    flex: 1; padding: 10px 16px; text-align: center; border-radius: 8px;
+    cursor: pointer; color: var(--text-secondary); font-size: 0.9rem;
+    transition: all 0.2s; border: none; background: none;
+}
+.tab:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+.tab.active { color: #fff; background: var(--accent-blue); }
+
+.card {
+    background: var(--bg-card); border: 1px solid var(--border-color);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title {
+    font-size: 1rem; font-weight: 600; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+}
+.card-title .badge {
+    font-size: 0.75rem; padding: 2px 8px; border-radius: 10px;
+    background: var(--accent-blue); color: #fff;
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.form-row {
+    display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.form-row input, .form-row select {
+    padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color);
+    background: var(--bg-primary); color: var(--text-primary);
+    font-size: 0.9rem; outline: none; flex: 1; min-width: 200px;
+}
+.form-row input:focus, .form-row select:focus { border-color: var(--accent-blue); }
+.form-row select { cursor: pointer; }
+.form-row select[multiple] { min-height: 100px; }
+
+.btn {
+    padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer;
+    font-size: 0.9rem; font-weight: 600; transition: all 0.2s;
+    white-space: nowrap;
+}
+.btn-primary { background: var(--accent-blue); color: #fff; }
+.btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-green { background: var(--accent-green); color: #fff; }
+.btn-green:hover { background: #16a34a; transform: translateY(-1px); }
+
+.result-box {
+    background: var(--bg-primary); border: 1px solid var(--border-color);
+    border-radius: 8px; padding: 16px; margin-top: 12px;
+    min-height: 60px; white-space: pre-wrap; line-height: 1.7;
+    font-size: 0.9rem; max-height: 600px; overflow-y: auto;
+}
+.result-box:empty::before {
+    content: "等待查询…"; color: var(--text-muted);
+}
+.result-box.loading {
+    display: flex; align-items: center; gap: 12px;
+}
+.result-box.loading::before {
+    content: ""; width: 20px; height: 20px;
+    border: 2px solid var(--border-color); border-top-color: var(--accent-blue);
+    border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+.stat-card {
+    background: var(--bg-primary); border: 1px solid var(--border-color);
+    border-radius: 8px; padding: 20px; text-align: center;
+}
+.stat-card .num { font-size: 2rem; font-weight: 700; color: var(--accent-blue); }
+.stat-card .label { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+
+.footer {
+    text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .app-header { padding: 12px 16px; flex-direction: column; gap: 12px; }
+    .app-main { padding: 16px; }
+    .form-row { flex-direction: column; }
+    .form-row input, .form-row select { min-width: auto; }
+    .tabs { flex-wrap: wrap; }
+    .tab { flex: 1 1 auto; font-size: 0.8rem; padding: 8px 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+    <div class="header-left">
+        <h1>📊 财经博主 RAG</h1>
+        <span class="subtitle">基于知识库的智能分析</span>
+    </div>
+</header>
+
+<main class="app-main">
+    <!-- Tabs -->
+    <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="ask">💬 问答</button>
+        <button class="tab" data-tab="compare">⚖️ 对比</button>
+        <button class="tab" data-tab="style">🎯 风格</button>
+        <button class="tab" data-tab="stats">📈 统计</button>
+    </div>
+
+    <!-- Tab: 问答 -->
+    <div class="tab-content active" id="tab-ask">
+        <div class="card">
+            <div class="card-title">💬 RAG 问答</div>
+            <div class="form-row">
+                <input type="text" id="askQuery" placeholder="输入问题，如：当前市场怎么看？" onkeydown="if(event.key==='Enter') doAsk()">
+                <select id="askBlogger">
+                    <option value="">全部博主</option>
+                </select>
+                <button class="btn btn-primary" id="askBtn" onclick="doAsk()">提问</button>
+            </div>
+            <div class="result-box" id="askResult"></div>
+        </div>
+    </div>
+
+    <!-- Tab: 对比 -->
+    <div class="tab-content" id="tab-compare">
+        <div class="card">
+            <div class="card-title">⚖️ 博主观点对比</div>
+            <div class="form-row">
+                <input type="text" id="cmpQuery" placeholder="输入问题" onkeydown="if(event.key==='Enter') doCompare()" style="flex:2">
+                <select id="cmpBloggers" multiple style="flex:1">
+                </select>
+                <button class="btn btn-green" id="cmpBtn" onclick="doCompare()">对比</button>
+            </div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin:-12px 0 12px 0;">按住 Ctrl/Command 多选博主</div>
+            <div class="result-box" id="cmpResult"></div>
+        </div>
+    </div>
+
+    <!-- Tab: 风格 -->
+    <div class="tab-content" id="tab-style">
+        <div class="card">
+            <div class="card-title">🎯 博主风格总结</div>
+            <div class="form-row">
+                <select id="styleBlogger">
+                    <option value="">选择博主</option>
+                </select>
+                <button class="btn btn-primary" id="styleBtn" onclick="doStyle()">总结风格</button>
+            </div>
+            <div class="result-box" id="styleResult"></div>
+        </div>
+    </div>
+
+    <!-- Tab: 统计 -->
+    <div class="tab-content" id="tab-stats">
+        <div class="card">
+            <div class="card-title">📈 向量库统计</div>
+            <div class="stats-grid" id="statsGrid"></div>
+            <button class="btn btn-primary" onclick="loadStats()" style="margin-top:16px">刷新</button>
+        </div>
+    </div>
+
+    <div class="footer">财经博主 RAG 分析系统 v1.0</div>
+</main>
+
+<script>
+// ── Tab 切换 ──
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+});
+
+// ── 加载博主列表 ──
+async function loadBloggers() {
+    try {
+        const resp = await fetch('/api/bloggers');
+        const data = await resp.json();
+        const selects = ['askBlogger', 'cmpBloggers', 'styleBlogger'];
+        selects.forEach(id => {
+            const sel = document.getElementById(id);
+            if (!sel) return;
+            if (id === 'cmpBloggers') {
+                data.bloggers.forEach(b => {
+                    const opt = document.createElement('option');
+                    opt.value = b; opt.textContent = b; sel.appendChild(opt);
+                });
+            } else {
+                data.bloggers.forEach(b => {
+                    const opt = document.createElement('option');
+                    opt.value = b; opt.textContent = b; sel.appendChild(opt);
+                });
+            }
+        });
+    } catch(e) { console.log('博主列表加载失败:', e); }
+}
+
+// ── 问答 ──
+async function doAsk() {
+    const query = document.getElementById('askQuery').value.trim();
+    if (!query) return;
+    const blogger = document.getElementById('askBlogger').value;
+    const box = document.getElementById('askResult');
+    const btn = document.getElementById('askBtn');
+    box.className = 'result-box loading';
+    box.textContent = '正在分析…';
+    btn.disabled = true;
+    try {
+        const params = new URLSearchParams({ query });
+        if (blogger) params.append('blogger', blogger);
+        const resp = await fetch('/api/ask?' + params.toString(), { method: "GET" });
+        const data = await resp.json();
+        box.className = 'result-box';
+        box.textContent = data.result;
+    } catch(e) {
+        box.className = 'result-box';
+        box.textContent = '请求失败: ' + e.message;
+    }
+    btn.disabled = false;
+}
+
+// ── 对比 ──
+async function doCompare() {
+    const query = document.getElementById('cmpQuery').value.trim();
+    if (!query) return;
+    const sel = document.getElementById('cmpBloggers');
+    const bloggers = Array.from(sel.selectedOptions).map(o => o.value).join(',');
+    if (!bloggers) { alert('请至少选择一个博主'); return; }
+    const box = document.getElementById('cmpResult');
+    const btn = document.getElementById('cmpBtn');
+    box.className = 'result-box loading';
+    box.textContent = '正在对比分析…';
+    btn.disabled = true;
+    try {
+        const params = new URLSearchParams({ query, bloggers });
+        const resp = await fetch('/api/compare?' + params.toString(), { method: "GET" });
+        const data = await resp.json();
+        box.className = 'result-box';
+        box.textContent = data.result;
+    } catch(e) {
+        box.className = 'result-box';
+        box.textContent = '请求失败: ' + e.message;
+    }
+    btn.disabled = false;
+}
+
+// ── 风格 ──
+async function doStyle() {
+    const blogger = document.getElementById('styleBlogger').value;
+    if (!blogger) { alert('请选择一个博主'); return; }
+    const box = document.getElementById('styleResult');
+    const btn = document.getElementById('styleBtn');
+    box.className = 'result-box loading';
+    box.textContent = '正在总结…';
+    btn.disabled = true;
+    try {
+        const params = new URLSearchParams({ blogger });
+        const resp = await fetch('/api/style?' + params.toString(), { method: "GET" });
+        const data = await resp.json();
+        box.className = 'result-box';
+        box.textContent = data.result;
+    } catch(e) {
+        box.className = 'result-box';
+        box.textContent = '请求失败: ' + e.message;
+    }
+    btn.disabled = false;
+}
+
+// ── 统计 ──
+async function loadStats() {
+    const grid = document.getElementById('statsGrid');
+    grid.innerHTML = '<div class="result-box loading">加载中…</div>';
+    try {
+        const resp = await fetch('/api/stats');
+        const data = await resp.json();
+        grid.innerHTML = '';
+        // 总数
+        const totalCard = document.createElement('div');
+        totalCard.className = 'stat-card';
+        totalCard.innerHTML = `<div class="num">${data.total_chunks || 0}</div><div class="label">总知识块数</div>`;
+        grid.appendChild(totalCard);
+        // 按博主
+        for (const [blogger, count] of Object.entries(data.by_blogger || {})) {
+            const card = document.createElement('div');
+            card.className = 'stat-card';
+            const colors = ['#22c55e', '#3b82f6', '#f59e0b', '#8b5cf6', '#ef4444'];
+            const i = Object.keys(data.by_blogger).indexOf(blogger) % colors.length;
+            card.innerHTML = `<div class="num" style="color:${colors[i]}">${count}</div><div class="label">${blogger}</div>`;
+            grid.appendChild(card);
+        }
+    } catch(e) {
+        grid.innerHTML = '<div class="result-box">加载失败: ' + e.message + '</div>';
+    }
+}
+
+// 初始化
+loadBloggers();
+loadStats();
+</script>
+</body>
+</html>

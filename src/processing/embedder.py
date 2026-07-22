@@ -123,6 +123,8 @@ class EmbeddingManager:
 
     def reset_collection(self):
         """清空并重建 collection（用于 pipeline 重新处理时去重）"""
+        # 确保 client 已初始化
+        self._get_collection()
         try:
             self._client.delete_collection(self.collection_name)
         except Exception:
